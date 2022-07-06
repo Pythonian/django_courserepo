@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome Home{% endblock %}
+
+{% block content %}
+
+<!-- Hero section -->
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto mb-3">
+            <h1 class="fw-light">Make every study hour count</h1>
+            <p class="lead text-muted">Find tens of course-specific study materials, past questions, assignments and lecture slides from Computer science lecturers with the form below.</p>
+        </div>
+
+        <form action="{% url 'search' %}" method="get">
+            <div class="row">
+                <div class="col-lg-3">
+                    <input type="text" class="form-control" placeholder="Name of material" name="name" id="id_name">
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" class="form-control" placeholder="Course" name="course" id="id_course">
+                </div>
+                <div class="col-lg-2 form-group">
+                    <select name="level" class="form-select" id="id_level">
+                        <option value="" selected>-- Select Level --</option>
+                        {% for level in levels %}
+                        <option value="{{ level.pk }}">{{ level.year }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-3 form-group">
+                    <select name="resource_type" class="form-select" id="id_resource_type">
+                        <option value="" selected>-- Select Resource Type --</option>
+                        {% for resource_type in resource_types %}
+                        <option value="{{ resource_type.pk }}">{{ resource_type.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Class Levels section -->
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="row gx-5 justify-content-center mb-5">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">Class Levels</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3">
+            {% for level in levels %}
+            <div class="col-lg-3 col-md-6">
+                <div class="card py-3 bg-dark">
+                    <a href="{{ level.get_absolute_url }}" class="text-decoration-none">
+                        <div class="card-body py-5">
+                            <h5 class="text-white text-center">{{ level.year }}</h5>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Popular materials section -->
+<div class="py-5">
+    <div class="container">
+        <div class="row gx-5 justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">Featured Materials</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3">
+            {% for material in materials %}
+            {% include 'partials/_material_item.html' %}
+            {% empty %}
+            <p>No record available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Courses section -->
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="row gx-5 justify-content-center mb-5">
+            <div class="col-lg-8 col-xl-6">
+                <div class="text-center">
+                    <h2 class="fw-bolder">Featured Courses</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card shadow-sm p-3">
+            <div class="row">
+                {% for course in courses %}
+                {% include 'partials/_course_item.html' %}
+                {% empty %}
+                <p>No record available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

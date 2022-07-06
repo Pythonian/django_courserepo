@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Browse Courses{% endblock %}
+
+{% block content %}
+
+<section class="py-3 bg-dark">
+    <div class="container px-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="fw-bolder">Browse Courses</h1>
+        </div>
+    </div>
+</section>
+
+<!-- Courses section -->
+<div class="py-5 bg-light">
+    <div class="container">
+        <div class="card shadow-sm p-3">
+            <div class="row">
+                {% for course in courses %}
+                {% include 'partials/_course_item.html' %}
+                {% empty %}
+                <p>No record available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

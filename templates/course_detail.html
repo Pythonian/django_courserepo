@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Materials for {{ course.title }}{% endblock %}
+
+{% block content %}
+
+<section class="py-3 bg-dark">
+    <div class="container px-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="fw-bolder">Materials for <u>{{ course.title }}</u></h1>
+        </div>
+    </div>
+</section>
+
+<div class="py-5">
+    <div class="container">
+        <div class="row g-3">
+            {% for material in materials %}
+            {% include 'partials/_material_item.html' %}
+            {% empty %}
+            <p>No record available.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
