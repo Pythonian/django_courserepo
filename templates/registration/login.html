@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5 col-md-9 mx-auto">
+            <div class="card my-4 border-0 shadow">
+                <div class="card-body">
+                    <h4 class="mb-4 text-center">Login to access your repository</h4>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button class="w-100 btn btn-primary" type="submit">Login</button>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <p class="my-3 text-center">
+                        <a href="{% url 'signup' %}">Register for an account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
