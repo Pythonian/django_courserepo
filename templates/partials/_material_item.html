@@ -1,7 +1,7 @@
 <div class="col-lg-3 col-md-6 col-12">
     <div class="card shadow-sm">
         <div class="card-body">
-            <h5 class="card-title"><a href="#" 1class="card-link">{{ material.name }}</a></h5>
+            <h5 class="card-title"><a href="{{ material.get_absolute_url }}">{{ material.name }}</a></h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ material.course.code }}</h6>
             <p class="card-text">
                 <ul class="list-unstyled">
