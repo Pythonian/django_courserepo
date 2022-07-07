@@ -15,7 +15,7 @@ class LibraryAdmin(admin.ModelAdmin):
 
 @admin.register(ResourceType)
 class ResourceTypeAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('name',)}
 
 
 @admin.register(Course)

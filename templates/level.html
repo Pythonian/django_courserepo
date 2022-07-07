@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Materials for {{ level.year }}{% endblock %}
+
+{% block content %}
+
+<section class="py-3 bg-dark">
+    <div class="container px-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="fw-bolder">Materials for <u>{{ level.year }}</u></h1>
+        </div>
+    </div>
+</section>
+
+<div class="py-5">
+    <div class="container">
+        <div class="row g-3 mb-5">
+            {% for material in materials %}
+            {% include 'partials/_material_item.html' %}
+            {% empty %}
+            <p>No record available.</p>
+            {% endfor %}
+        </div>
+        {% include 'partials/_pagination.html' with page_obj=materials %}
+    </div>
+</div>
+
+
+{% endblock %}

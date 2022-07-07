@@ -1,5 +1,5 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.urls import reverse
 
 
@@ -19,6 +19,9 @@ class Course(models.Model):
     slug = models.SlugField(max_length=100, unique=True)
     code = models.CharField(max_length=10)
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['title']
 
     def get_absolute_url(self):
         return reverse('course_detail', kwargs={'slug': self.slug})
@@ -48,6 +51,9 @@ class Material(models.Model):
     impressions = models.PositiveIntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['name']
 
     def get_absolute_url(self):
         return reverse('course_material', kwargs={'slug': self.slug})

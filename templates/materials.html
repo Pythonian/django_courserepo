@@ -14,13 +14,14 @@
 
 <div class="py-5">
     <div class="container">
-        <div class="row g-3">
+        <div class="row g-3 mb-5">
             {% for material in materials %}
             {% include 'partials/_material_item.html' %}
             {% empty %}
             <p>No record available.</p>
             {% endfor %}
         </div>
+        {% include 'partials/_pagination.html' with page_obj=materials %}
     </div>
 </div>
 

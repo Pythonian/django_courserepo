@@ -1,10 +1,26 @@
 from django.shortcuts import get_object_or_404, render
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .models import Level, Library, Course, Material, ResourceType
 
 
 def is_valid_query_paramter(param):
     return param != '' and param is not None
+
+
+def mk_paginator(request, items, num_items):
+    """Create and return a paginator."""
+    paginator = Paginator(items, num_items)
+    page = request.GET.get('page', 1)
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, return the first page.
+        items = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range, return the last page of results.
+        items = paginator.page(paginator.num_pages)
+    return items
 
 
 def home(request):
@@ -26,6 +42,7 @@ def home(request):
 
 def courses(request):
     courses = Course.objects.all()
+    courses = mk_paginator(request, courses, 30)
 
     template_name = 'courses.html'
     context = {
@@ -37,6 +54,7 @@ def courses(request):
 
 def materials(request):
     materials = Material.objects.all()
+    materials = mk_paginator(request, materials, 20)
 
     template_name = 'materials.html'
     context = {
@@ -72,10 +90,12 @@ def course_detail(request, slug):
 
 def level(request, slug):
     level = get_object_or_404(Level, slug=slug)
+    materials = Material.objects.filter(course__level=level)
 
     template_name = 'level.html'
     context = {
         'level': level,
+        'materials': materials,
     }
 
     return render(request, template_name, context)
@@ -88,15 +108,15 @@ def search(request):
     resource_types = ResourceType.objects.all()
 
     material_name_query = request.GET.get('name')
+    course_query = request.GET.get('course')
     level_query = request.GET.get('level')
     resource_type_query = request.GET.get('resource_type')
-    course_query = request.GET.get('course')
 
     if is_valid_query_paramter(material_name_query):
         qs = qs.filter(name__icontains=material_name_query)
 
     if is_valid_query_paramter(course_query):
-        qs = qs.filter(course=course_query)
+        qs = qs.filter(course__title__icontains=course_query)
 
     if is_valid_query_paramter(level_query) and level_query != '-- Select Level --':
         qs = qs.filter(course__level=level_query)
