@@ -22,13 +22,16 @@ class SignUpView(SuccessMessageMixin, CreateView):
 
 
 def profile(request):
-    materials = Material.objects.filter(favorite=request.user)
-    favorite = bool
-    if Material.objects.filter(favorite=request.user).exists():
-        favorite = True
-    return render(
-        request, 'profile.html',
-        {'materials': materials, 'favorite': favorite})
+    # materials = Material.objects.filter(favorite=request.user)
+    # favorite = bool
+    # if Material.objects.filter(favorite=request.user).exists():
+    #     favorite = True
+    template = 'profile.html'
+    context = {
+        #'materials': materials, 'favorite': favorite
+    }
+
+    return render(request, template, context)
 
 
 def settings(request):
