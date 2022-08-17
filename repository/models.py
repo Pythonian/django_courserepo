@@ -44,6 +44,8 @@ class Material(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    description = models.TextField()
+    image = models.ImageField(upload_to='images')
     document = models.FileField(upload_to='materials')
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     pages = models.PositiveSmallIntegerField()

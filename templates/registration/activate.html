@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block title %}{% trans "Account Activation Failed" %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center my-5">
+        <div class="col-lg-5">
+            <div class="card p-5">
+                <h3>{% trans "Account Activation Failed" %}</h3>
+                <p>{% trans "This account activation link is invalid, possibly because it has already been used or it may have incorrectly been copied from your email." %}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
