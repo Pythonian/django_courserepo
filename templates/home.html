@@ -57,7 +57,7 @@
         <div class="row g-3">
             {% for level in levels %}
             <div class="col-lg-3 col-md-6 mb-3">
-                <div class="card bg-primary">
+                <div class="card bg-dark">
                     <a href="{{ level.get_absolute_url }}" class="text-decoration-none">
                         <h5 class="text-white text-center py-3 pt-4">{{ level.year }}</h5>
                     </a>
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="row g-3">
+        <div class="row">
             {% for material in materials %}
             {% include 'partials/_material_item.html' %}
             {% empty %}

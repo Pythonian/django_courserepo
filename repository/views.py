@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.shortcuts import get_object_or_404, render
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.http import HttpResponseRedirect
 
 from .models import Level, Library, Course, Material, ResourceType
 
@@ -67,12 +70,29 @@ def materials(request):
 def course_material(request, slug):
     material = get_object_or_404(Material, slug=slug)
 
+    added_to_library = bool
+    if material.user_library.filter(id=request.user.id).exists():
+        added_to_library = True
+
     template_name = 'course_material.html'
     context = {
         'material': material,
+        'added_to_library': added_to_library,
     }
 
     return render(request, template_name, context)
+
+
+@login_required
+def add_to_library(request, id):
+    material = get_object_or_404(Material, id=id)
+    if material.user_library.filter(id=request.user.id).exists():
+        material.user_library.remove(request.user)
+        messages.success(request, "Material removed from your library")
+    else:
+        material.user_library.add(request.user)
+        messages.success(request, "Material added to your library")
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def course_detail(request, slug):

@@ -1,5 +1,31 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
-{% block title %}Account settings{% endblock %}
+{% block title %}Settings{% endblock %}
 
-{% block content %}{% endblock %}
+{% block content %}
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <aside class="col-lg-3">
+                {% include 'partials/_account_nav.html' %}
+            </aside>
+            <div class="col-lg-9">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="col-lg-6 mb-3">
+                                {{ user_form|crispy }}
+                                <button class="btn btn-primary" type="submit">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -50,7 +50,8 @@ class Material(models.Model):
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     pages = models.PositiveSmallIntegerField()
     lecturer = models.CharField(max_length=50)
-    impressions = models.PositiveIntegerField(default=0)
+    user_library = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name='user_materials', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

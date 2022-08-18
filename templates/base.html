@@ -14,6 +14,17 @@
         #hint_id_new_password1 {
             display: none;
         }
+        :root {
+            --avatar-size: 3rem;
+        }
+        .circle {
+            height: var(--avatar-size);
+            width: var(--avatar-size);
+        }
+        .initials {
+            font-size: calc(var(--avatar-size) / 2); /* 50% of parent */
+            top: calc(var(--avatar-size) / 4); /* 25% of parent */
+        }
     </style>
 </head>
 
