@@ -93,13 +93,10 @@ def activate(request, uidb64, token):
 
 
 def profile(request):
-    # materials = Material.objects.filter(favorite=request.user)
-    # favorite = bool
-    # if Material.objects.filter(favorite=request.user).exists():
-    #     favorite = True
+    materials = Material.objects.filter(user_library=request.user)
     template = 'profile.html'
     context = {
-        #'materials': materials, 'favorite': favorite
+        'materials': materials,
     }
 
     return render(request, template, context)

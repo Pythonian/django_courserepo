@@ -43,8 +43,9 @@
 
                     <dt class="col-3">Resource Type</dt>
                     <dd class="col-9">{{ material.resource_type }}</dd>
-
                 </dl>
+
+                <hr>
 
                 {% if request.user.is_authenticated %}
                     <a href="{{ material.document.url }}" target="_blank" class="btn btn-info" download> Download </a>

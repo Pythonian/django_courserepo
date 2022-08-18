@@ -12,35 +12,7 @@
             <p class="lead text-muted">Find tens of course-specific study materials, past questions, assignments and lecture slides from Computer science lecturers with the form below.</p>
         </div>
 
-        <form action="{% url 'search' %}" method="get">
-            <div class="row">
-                <div class="col-lg-3 mb-2">
-                    <input type="text" class="form-control" placeholder="Name of material" name="name" id="id_name">
-                </div>
-                <div class="col-lg-3 mb-2">
-                    <input type="text" class="form-control" placeholder="Course" name="course" id="id_course">
-                </div>
-                <div class="col-lg-2 form-group mb-2">
-                    <select name="level" class="form-select" id="id_level">
-                        <option value="" selected>-- Select Level --</option>
-                        {% for level in levels %}
-                        <option value="{{ level.pk }}">{{ level.year }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-lg-3 form-group mb-2">
-                    <select name="resource_type" class="form-select" id="id_resource_type">
-                        <option value="" selected>-- Select Resource Type --</option>
-                        {% for resource_type in resource_types %}
-                        <option value="{{ resource_type.pk }}">{{ resource_type.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-lg-1">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </div>
-        </form>
+        {% include "partials/_search_filters.html" %}
     </div>
 </section>
 
