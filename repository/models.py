@@ -42,6 +42,7 @@ class ResourceType(models.Model):
 
 class Material(models.Model):
     name = models.CharField(max_length=100)
+    lecturer = models.CharField(max_length=50)
     slug = models.SlugField(max_length=100, unique=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     description = models.TextField()
@@ -49,7 +50,6 @@ class Material(models.Model):
     document = models.FileField(upload_to='materials')
     resource_type = models.ForeignKey(ResourceType, on_delete=models.PROTECT)
     pages = models.PositiveSmallIntegerField()
-    lecturer = models.CharField(max_length=50)
     user_library = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='user_materials', blank=True)
     created = models.DateTimeField(auto_now_add=True)

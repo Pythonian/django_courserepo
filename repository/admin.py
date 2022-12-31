@@ -29,4 +29,4 @@ class CourseAdmin(admin.ModelAdmin):
 class MaterialAdmin(admin.ModelAdmin):
     list_display = ['name', 'course']
     list_filter = ['course__level']
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('lecturer', 'name')}
